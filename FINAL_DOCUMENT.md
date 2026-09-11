@@ -425,8 +425,8 @@ Runs the full planner → research → evaluate → correct → synthesis loop a
 
 | Area | Current state | Recommendation |
 |------|---------------|----------------|
-| **Secrets hygiene** | Real DB URL + API key committed in `.env.example` | Rotate the Supabase password and Gemini key; replace with placeholders; add `*.db`, `*.log`, `.venv/` to `.gitignore` |
-| **Stray artifacts** | `backend/` contains dev SQLite files (`debug*.db`, `loop_check.db`, `res_check.json`, `uvicorn.log`, `.bak` files) | Delete or ignore them; keep only `smoke_test.db` if desired |
+| **Secrets hygiene** | ✅ Resolved — `.env.example` now uses placeholders; real `.env` files and DB/log artifacts are excluded via `.gitignore`. **Note:** the credentials were previously exposed in an earlier working state — rotate the Supabase password and Gemini key if they were ever shared |
+| **Stray artifacts** | ✅ Resolved — dev SQLite files (`debug*.db`, `loop_check.db`, `res_check.json`, `uvicorn.log`, `.bak`) are gitignored; optionally delete them from disk |
 | **Event bus scope** | In-memory per-process pub/sub | For multi-worker deployments, move to Redis pub/sub or a Postgres LISTEN/NOTIFY channel |
 | **Auth** | `user_id` is accepted but not authenticated | Add API-key or JWT auth before exposing publicly |
 | **SSE fan-out** | One EventSource per session page | Fine at current scale; consider pagination for very long audit trails |
